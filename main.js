@@ -80,16 +80,15 @@ function convertElToObj(event) {
 }
 
 function submitAnddisplayContent() {
-
-  let pwCheck = isValidPw(elPW,elPWCheck);
-
+  
   elSubmitBtn.addEventListener('click', event => {
-// password validation check
-if(pwCheck === 'err_invalid_pw'){
-  alert('유효한 비밀번호를 입력하세요');
-} else if(pwCheck === 'err_diff_pw'){
-  alert('비밀번호가 다릅니다');
-} else {
+    let pwCheck = isValidPw(elPW,elPWCheck);
+    // password validation check
+    if(pwCheck === 'err_invalid_pw'){
+      alert('유효한 비밀번호를 입력하세요');
+    } else if(pwCheck === 'err_diff_pw'){
+      alert('비밀번호가 다릅니다');
+    } else {
       // tweet작성 내용 obj로 만들기
       let newTweetObj = createContetObj();
       // 생성된 tweet DB(local storage)에 추가
@@ -102,7 +101,7 @@ if(pwCheck === 'err_invalid_pw'){
       clearAllInput();
       // 생성 후 삭제버튼 누를 시 삭제 되는 함수 실행
       deleteTweetfromDB(); 
-}
+    }
   })
   
 }

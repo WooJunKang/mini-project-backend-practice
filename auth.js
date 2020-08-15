@@ -1,7 +1,7 @@
 
 /* Password Validation Check */
 function isPwNumAnd4digit(pwInput) {
-  if(typeof pwInput.value === Number && String(pwInput.value).length === 4){
+  if(!(Number.isNaN(Number(pwInput.value))) && pwInput.value.length === 4){
     return true;
   } else {
     return false;
