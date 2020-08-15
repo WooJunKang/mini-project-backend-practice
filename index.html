@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>twittler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  <link 
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Red+Rose"
+  />
+
+  
+</head>
+<body>
+  
+  <!-- header -->
+  <header id="main">
+    <div class="title">twittler.</div>
+  </header>
+
+  <!-- writting section -->
+  <section id="write">
+    <div class="username">
+      <div>작성자</div>
+      <div><input type="text" id="write-username" ></div>
+    </div>
+
+    <div id="password">
+      <div>비밀번호 (4자리 숫자)</div>
+      <div><input type="password" id="write-pw" maxlength="4"></div>
+      <div>비밀번호 확인</div>
+      <div><input type="password" id="write-pw-check" maxlength="4"></div>
+    </div>
+
+    <div id="msg">
+      <div>내용</div>
+      <div>
+        <textarea id="write-content"></textarea>
+      </div>
+    </div>
+
+    <div>
+      <button id="tweet-btn">Tweet!</button>
+    </div>
+  </section>
+
+  <!-- reading section -->
+  <section id="read">
+    <ul id="tweet-container">
+
+    </ul>
+  </section>
+  <script type="text/javascript" src = 'auth.js'>  </script>
+  <script type="text/javascript" src = 'main.js'></script>
+</body>
+</html>

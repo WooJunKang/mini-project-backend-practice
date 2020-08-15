@@ -1,0 +1,117 @@
+:root {
+
+  /* Warm Gray Color Code */
+  --dark-1: #212121;
+  --dark-2: #303030;
+  --dark-3: #424242;
+
+
+  /* Padding Size */
+  --spacing: 12px;
+  --spacing-small: 6px;
+
+  /* Font Size */
+  --font-large: 20px;
+  --font-regular: 16px;
+  --font-medium: 14px;
+  --font-small: 12px;
+  --font-micro: 10px;
+  --font-title: 64px;
+}
+
+html {
+  background-image: url('./forest-trees-rock-illustration-simple-background-minimalism.jpg');
+}
+
+body {
+  padding: var(--spacing);
+  margin: auto;
+  width: 80%;
+  max-width: 560px;
+}
+
+header#main {
+  border: 1px solid lightgrey;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.3) ;
+  border-radius: 15px;
+  font-size: var(--font-title);
+  font-weight: 200;
+  color: var(--dark-3);
+  padding: var(--spacing-small);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+section {
+  padding: var(--spacing);
+}
+
+section#write {
+  position: relative;
+  top: 20px;
+  border: 1px solid lightgrey;
+  background-color: rgba(255, 255, 255, 0.3) ;
+  border-radius: 15px;
+  font-weight: 200;
+  font-size: var(--font-medium);
+  color: var(--dark-3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+section#read {
+  border: 1px solid lightgrey;
+  position: relative;
+  top: 40px;
+  background-color: rgba(255, 255, 255, 0.3) ;
+  border-radius: 15px;
+  font-weight: 200;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+section#read>header {
+  padding-top: var(--spacing-small);
+  padding-bottom: var(--spacing-small);
+}
+
+#refresh-btn {
+  font-size: var(--font-large);
+
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+  /* border: 1px solid black; */
+  margin-top: 0px;
+  margin-bottom: var(--spacing-small);
+  
+  display: flex;
+  flex-direction: column;
+  
+
+}
+
+li.comment {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: var(--spacing-small);
+}
+
+span.username {
+  font-size: var(--font-regular);
+  color: var(--dark-3);
+  font-weight: 400;
+}
+
+span.tweet-timestamp {
+  font-size: var(--font-medium);
+  color: var(--dark-3);
+}
+
+div.content {
+  font-size: var(--font-small);
+  padding-top: var(--spacing-small);
+  color: var(--dark-3);
+}
+
