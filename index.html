@@ -10,7 +10,7 @@
     href="https://fonts.googleapis.com/css?family=Red+Rose"
   />
 
-  
+
 </head>
 <body>
   
@@ -20,15 +20,21 @@
   </header>
 
   <!-- writting section -->
-  <section id="write">
+  <!-- <form action='/content' method="POST">
+    <input type="text" name="nickname" />
+    <input type="submit" value="전송" />
+  </form> -->
+
+
+  <form action='/content' method="POST" id="write">
     <div class="username">
       <div>작성자</div>
-      <div><input type="text" id="write-username" ></div>
+      <div><input type="text" id="write-username" name="username" ></div>
     </div>
 
     <div id="password">
       <div>비밀번호 (4자리 숫자)</div>
-      <div><input type="password" id="write-pw" maxlength="4"></div>
+      <div><input type="password" id="write-pw" name="userpw" maxlength="4"></div>
       <div>비밀번호 확인</div>
       <div><input type="password" id="write-pw-check" maxlength="4"></div>
     </div>
@@ -36,14 +42,14 @@
     <div id="msg">
       <div>내용</div>
       <div>
-        <textarea id="write-content"></textarea>
+        <textarea id="write-content" name="content"></textarea>
       </div>
     </div>
 
     <div>
-      <button id="tweet-btn">Tweet!</button>
+      <input type="submit" value="Tweet!" />
     </div>
-  </section>
+  </form>
 
   <!-- reading section -->
   <section id="read">
@@ -51,6 +57,7 @@
 
     </ul>
   </section>
+  <script type="test/javascript" src='app.js'></script>
   <script type="text/javascript" src = 'auth.js'>  </script>
   <script type="text/javascript" src = 'main.js'></script>
 </body>

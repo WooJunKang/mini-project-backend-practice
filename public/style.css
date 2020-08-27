@@ -42,11 +42,11 @@ header#main {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-section {
+form {
   padding: var(--spacing);
 }
 
-section#write {
+form#write {
   position: relative;
   top: 20px;
   border: 1px solid lightgrey;

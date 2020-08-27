@@ -36,22 +36,28 @@ Date.prototype.format = function() {
 // --------------------------------------------
 /* Create & Add & Delete Tweet */
 // --------------------------------------------
-function createContetObj() {
-  let currentDate = new Date()
-  let obj = {};
 
-  obj['user'] = elUserName.value;
-  obj['content'] = elContent.value;
-  obj['created_at'] = currentDate.format();
 
-  return obj;
+
+window.onload = function(){
+  fetch('http://localhost:3001/contents')
+    .then(response => response.json())
+    .then(json => {
+      for(obj of json){
+        convertContentObjToEl(obj);
+      }
+      deleteTweetfromDB();
+    })
+  
 }
+
 
 function convertContentObjToEl(object) {
   let newElTweet = document.createElement('li')
   let newElUserName = document.createElement('span');
   let newElContent = document.createElement('div');
   let newElCreatedAt = document.createElement('span');
+  // let newElUniqueId = document.createElement('data');
   let newElDeleteBtn = document.createElement('button');
 
   newElTweet.setAttribute('class', 'comment')
@@ -59,16 +65,16 @@ function convertContentObjToEl(object) {
   newElContent.setAttribute('class', 'content');
   newElCreatedAt.setAttribute('class', 'tweet-timestamp');
   newElDeleteBtn.setAttribute('class', 'tweet-delete');
+  newElTweet.setAttribute('value', object._id);
 
-  newElUserName.textContent = object.user;
+  newElUserName.textContent = object.user_name;
   newElCreatedAt.textContent = object.created_at;
   newElContent.textContent = object.content;
   newElDeleteBtn.textContent = '삭제';
 
   newElTweet.append(newElUserName, newElCreatedAt, newElContent, newElDeleteBtn);
 
-  return newElTweet;
-
+  elContentContainer.append(newElTweet);
 }
 
 function convertElToObj(event) {
@@ -79,50 +85,21 @@ function convertElToObj(event) {
   return obj;
 }
 
-function submitAnddisplayContent() {
-  
-  elSubmitBtn.addEventListener('click', event => {
-    let pwCheck = isValidPw(elPW,elPWCheck);
-    // password validation check
-    if(pwCheck === 'err_invalid_pw'){
-      alert('유효한 비밀번호를 입력하세요');
-    } else if(pwCheck === 'err_diff_pw'){
-      alert('비밀번호가 다릅니다');
-    } else {
-      // tweet작성 내용 obj로 만들기
-      let newTweetObj = createContetObj();
-      // 생성된 tweet DB(local storage)에 추가
-      addObjToDB(newTweetObj);
-      // 기존에 displayed된 모든 tweet element 삭제
-      clearAllDisplayedTweet();
-      // DB에 있는 모든 tweet display
-      loadAllData();
-      // 생성 후 input창 초기화
-      clearAllInput();
-      // 생성 후 삭제버튼 누를 시 삭제 되는 함수 실행
-      deleteTweetfromDB(); 
-    }
-  })
-  
-}
 
-function getKeyByValue(object, value) {
-  return Object.keys(object).find(key => object[key] === value);
-}
+
+
 
 function deleteTweetfromDB() {
+  console.log('111');
   let elDeleteBtn = document.querySelectorAll('.tweet-delete');
   elDeleteBtn.forEach(item => {
     item.addEventListener('click', event => {
-      let deletedObj = convertElToObj(event);
-      let targetVal = JSON.stringify(deletedObj);
-      let targetId = getKeyByValue(localStorage, targetVal);
-
-      localStorage.removeItem(targetId);
-      clearAllDisplayedTweet();
-      loadAllData();
-      // 노출
-      // event.target.parentNode.remove();
+      let uniqueId = event.path[1].getAttribute("value");
+      fetch('http://localhost:3001/delete/' + uniqueId, {
+        method: 'PUT'
+      });
+      clearTweetById(uniqueId);
+      // location.reload(true);
     })
   })
 }
@@ -136,7 +113,6 @@ function clearAllInput() {
 
 }
 
-submitAnddisplayContent();
 // --------------------------------------------
 
 
@@ -173,3 +149,11 @@ function clearAllDisplayedTweet() {
   elAllComment.forEach(x => x.remove());
 }
 
+function clearTweetById(id) {
+  let elAllComment = document.querySelectorAll('.comment');
+  elAllComment.forEach(x => {
+    if(x.getAttribute("value") === id){
+      x.remove();
+    }
+  });
+}

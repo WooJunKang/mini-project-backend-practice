@@ -25,13 +25,15 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.get('/', (req, res) => {
   res.sendFile('./index.html', {root : __dirname });
+
 })
 
 
 // get all TWEET from DB
 app.get('/contents', (req, res) => {
   console.log(111);
-  Contents.find({})
+  Contents.find({is_deleted: false})
+  .sort({created_at:'desc'})
   .exec(function(err, docs){
     if(err){
       console.log('!!! error !!!');
@@ -41,12 +43,8 @@ app.get('/contents', (req, res) => {
   })
 })
 
-const userAction = async () => {
-  fetch('http://localhost:3001/contents')
-    .then(response => response.json())
-    .then(json => console.log(json))
-  }
-  userAction();
+
+
 
 
 
@@ -90,13 +88,25 @@ app.post('/content', (req, res) => {
   .catch((err) => {
     console.log(err);
   })
-
-  // res.sendFile('./index.html', {root : __dirname });
-
+  
+  res.redirect('/')
 })
 
 
-
+// delete tweet
+app.put('/delete/:id', (req, res) => {
+  Contents.findByIdAndUpdate(
+    { _id: req.params.id},
+    {is_deleted: true},
+    function(err, result) {
+      if(err){
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  )
+})
 
 
 
