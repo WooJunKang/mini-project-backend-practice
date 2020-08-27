@@ -7,10 +7,6 @@ const elSubmitBtn = document.querySelector('#tweet-btn');
 const elContentContainer = document.querySelector('#tweet-container');
 
 
-
-// --------------------------------------------
-/* Setting Date Format */
-// --------------------------------------------
 Number.prototype.padLeft = function() {
   if(this < 10) {
     return '0' + String(this);
@@ -31,13 +27,6 @@ Date.prototype.format = function() {
   var format = [yyyy, month, dd].join('-') + ' ' + [HH, mm, ss].join(':');
   return format;
 }
-// --------------------------------------------
-
-// --------------------------------------------
-/* Create & Add & Delete Tweet */
-// --------------------------------------------
-
-
 
 window.onload = function(){
   fetch('http://localhost:3001/contents')
@@ -77,20 +66,8 @@ function convertContentObjToEl(object) {
   elContentContainer.append(newElTweet);
 }
 
-function convertElToObj(event) {
-  let obj = {};
-  obj.user = event.target.parentNode.querySelector('.username').textContent;
-  obj.content = event.target.parentNode.querySelector('.content').textContent;
-  obj.created_at = event.target.parentNode.querySelector('.tweet-timestamp').textContent;
-  return obj;
-}
-
-
-
-
 
 function deleteTweetfromDB() {
-  console.log('111');
   let elDeleteBtn = document.querySelectorAll('.tweet-delete');
   elDeleteBtn.forEach(item => {
     item.addEventListener('click', event => {
@@ -99,55 +76,10 @@ function deleteTweetfromDB() {
         method: 'PUT'
       });
       clearTweetById(uniqueId);
-      // location.reload(true);
     })
   })
 }
 
-function clearAllInput() {
-
-  elUserName.value = '';
-  elContent.value = '';
-  elPW.value = '';
-  elPWCheck.value = '';
-
-}
-
-// --------------------------------------------
-
-
-// --------------------------------------------
-/* DATABASE (local storage) */
-// --------------------------------------------
-
-function generateUniqueId() {
-  let uniqueId = 1;
-  while(localStorage.getItem(String(uniqueId)) !== null){
-    uniqueId++;
-  }
-  return uniqueId
-}
-
-function addObjToDB(object) {
-  let id = generateUniqueId();
-  localStorage.setItem(id, JSON.stringify(object));
-}
-
-function loadAllData() {
-  let i = 1;
-  while(localStorage.getItem(String(i)) !== null){
-    let obj = JSON.parse(localStorage.getItem(String(i)));
-    let el = convertContentObjToEl(obj)
-    elContentContainer.prepend(el);
-    i++;
-  }
-}
-
-
-function clearAllDisplayedTweet() {
-  let elAllComment = document.querySelectorAll('.comment');
-  elAllComment.forEach(x => x.remove());
-}
 
 function clearTweetById(id) {
   let elAllComment = document.querySelectorAll('.comment');
