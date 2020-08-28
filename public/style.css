@@ -82,7 +82,7 @@ ul {
   list-style: none;
   padding: 0px;
   /* border: 1px solid black; */
-  margin-top: 0px;
+  margin-top: var(--spacing-small);
   margin-bottom: var(--spacing-small);
   
   display: flex;
@@ -94,8 +94,11 @@ ul {
 li.comment {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid lightgrey;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: var(--spacing-small);
+  /* margin: 10px; */
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 span.username {
