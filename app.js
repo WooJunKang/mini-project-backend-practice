@@ -30,13 +30,12 @@ app.get('/', (req, res) => {
 
 
 // get all TWEET from DB
-app.get('/contents', (req, res) => {
-  console.log(111);
+app.get('/contents', (req, res) => { 
   Contents.find({is_deleted: false})
   .sort({created_at:'desc'})
-  .exec(function(err, docs){
+  .exec((err, docs) => {
     if(err){
-      console.log('!!! error !!!');
+      console.log(err);
     } else {
       res.json(docs);
     }
@@ -97,7 +96,8 @@ app.post('/content', (req, res) => {
 app.put('/delete/:id', (req, res) => {
   Contents.findByIdAndUpdate(
     { _id: req.params.id},
-    {is_deleted: true},
+    {is_deleted: true,
+     deleted_at: new Date()},
     function(err, result) {
       if(err){
         res.send(err);
