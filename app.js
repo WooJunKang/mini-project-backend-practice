@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.listen(PORT);
 
-const dbURI = 'mongodb+srv://woojun-kang:{!! PASSWORD HERE !!}@my-first-cluster.9pf89.mongodb.net/twittler?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://woojun-kang:1234@my-first-cluster.9pf89.mongodb.net/twittler?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => console.log('connected to db'))
   .catch((err) => console.log(err));
