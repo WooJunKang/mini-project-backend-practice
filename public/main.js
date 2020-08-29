@@ -72,7 +72,7 @@ function deleteTweetfromDB() {
   elDeleteBtn.forEach(item => {
     item.addEventListener('click', event => {
       let uniqueId = event.path[1].getAttribute("value");
-      fetch('http://localhost:3001/delete/' + uniqueId, {
+      fetch('https://twittler-miniproject.herokuapp.com/delete/' + uniqueId, {
         method: 'PUT'
       });
       clearTweetById(uniqueId);
