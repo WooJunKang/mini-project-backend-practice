@@ -29,7 +29,7 @@ Date.prototype.format = function() {
 }
 
 window.onload = function(){
-  fetch('https://twittler-miniproject.herokuapp.com//contents')
+  fetch('https://twittler-miniproject.herokuapp.com/contents')
     .then(response => response.json())
     .then(json => {
       for(obj of json){
