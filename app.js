@@ -1,3 +1,4 @@
+const PORT = process.env.PORT || 3001;
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -14,7 +15,8 @@ app.use(bodyParser.json());
 
 // connect web server - DB
 
-app.listen(3001);
+app.listen(PORT);
+
 const dbURI = 'mongodb+srv://woojun-kang:{!! PASSWORD HERE !!}@my-first-cluster.9pf89.mongodb.net/twittler?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => console.log('connected to db'))
