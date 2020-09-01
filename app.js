@@ -7,29 +7,27 @@ const Contents = require('./models/contentsSchema');
 const bodyParser = require('body-parser');
 const fetch = require("node-fetch");
 
-app.use(express.static('public'))
+// public 폴더 내 소스 사용을 위함 (html, css, 이미지 등)
+app.use(express.static('public')) 
 
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
+// 프론트엔드 파싱 위함
+app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json());
 
-// connect web server - DB
-
+// create server from Heroku
 app.listen(PORT);
 
+// connect web server - DB
 const dbURI = 'mongodb+srv://woojun-kang:1234@my-first-cluster.9pf89.mongodb.net/twittler?retryWrites=true&w=majority';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => console.log('connected to db'))
   .catch((err) => console.log(err));
 
 
-  
-
+/* set router & api */
 app.get('/', (req, res) => {
   res.sendFile('./index.html', {root : __dirname });
-
 })
-
 
 // get all TWEET from DB
 app.get('/contents', (req, res) => { 
@@ -43,11 +41,6 @@ app.get('/contents', (req, res) => {
     }
   })
 })
-
-
-
-
-
 
 // create TWEET 
 app.post('/content', (req, res) => {
