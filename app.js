@@ -29,11 +29,6 @@ app.get('/', (req, res) => {
   res.sendFile('./index.html', { root: __dirname });
 })
 
-/* verify ownership for google */
-app.get('/google750900d9e076282d.html', (req, res) => {
-  res.sendFile('./google750900d9e076282d.html')
-})
-
 // get all TWEET from DB
 app.get('/contents', (req, res) => {
   Contents.find({ is_deleted: false })
