@@ -8,10 +8,10 @@ const bodyParser = require('body-parser');
 const fetch = require("node-fetch");
 
 // public 폴더 내 소스 사용을 위함 (html, css, 이미지 등)
-app.use(express.static('public')) 
+app.use(express.static('public'))
 
 // 프론트엔드 파싱 위함
-app.use(bodyParser.urlencoded({ extended: false })) 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
 // create server from Heroku
@@ -26,20 +26,25 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 /* set router & api */
 app.get('/', (req, res) => {
-  res.sendFile('./index.html', {root : __dirname });
+  res.sendFile('./index.html', { root: __dirname });
+})
+
+/* verify ownership for google */
+app.get('/google750900d9e076282d.html', (req, res) => {
+  res.sendFile('./google750900d9e076282d.html')
 })
 
 // get all TWEET from DB
-app.get('/contents', (req, res) => { 
-  Contents.find({is_deleted: false})
-  .sort({created_at:'desc'})
-  .exec((err, docs) => {
-    if(err){
-      console.log(err);
-    } else {
-      res.json(docs);
-    }
-  })
+app.get('/contents', (req, res) => {
+  Contents.find({ is_deleted: false })
+    .sort({ created_at: 'desc' })
+    .exec((err, docs) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(docs);
+      }
+    })
 })
 
 // create TWEET 
@@ -52,7 +57,7 @@ app.post('/content', (req, res) => {
   const createdAt = new Date();
 
   // content collection
-  const  newContent = new Contents({
+  const newContent = new Contents({
     user_name: username,
     password: userpw,
     content: content,
@@ -68,21 +73,21 @@ app.post('/content', (req, res) => {
   })
 
   newContent.save()
-  .then((result) => {
-    res.send(result)
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
   newUser.save()
-  .then((result) => {
-    res.send(result)
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
   res.redirect('/')
 })
 
@@ -90,11 +95,13 @@ app.post('/content', (req, res) => {
 // delete tweet
 app.put('/delete/:id', (req, res) => {
   Contents.findByIdAndUpdate(
-    { _id: req.params.id},
-    {is_deleted: true,
-     deleted_at: new Date()},
-    function(err, result) {
-      if(err){
+    { _id: req.params.id },
+    {
+      is_deleted: true,
+      deleted_at: new Date()
+    },
+    function (err, result) {
+      if (err) {
         res.send(err);
       } else {
         res.send(result);
